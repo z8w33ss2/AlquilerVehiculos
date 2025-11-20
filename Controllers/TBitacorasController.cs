@@ -1,15 +1,18 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Threading.Tasks;
+﻿using AlquilerVehiculos.Data;
+using AlquilerVehiculos.Models;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.Rendering;
 using Microsoft.EntityFrameworkCore;
-using AlquilerVehiculos.Data;
-using AlquilerVehiculos.Models;
+using System;
+using System.Collections.Generic;
+using System.Linq;
+using System.Threading.Tasks;
 
 namespace AlquilerVehiculos.Controllers
 {
+    // Bitácora: solo Jefe y Admin (auditoría)
+    [Authorize(Roles = "Jefe,AdminApp")]
     public class TBitacorasController : Controller
     {
         private readonly DbAlquilerVehiculosContext _context;

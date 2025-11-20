@@ -1,7 +1,11 @@
 ﻿using System;
 using System.Collections.Generic;
+using Microsoft.AspNetCore.Authorization;
+
+
 
 namespace AlquilerVehiculos.Models;
+
 
 public partial class TSucursale
 {

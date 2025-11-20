@@ -1,7 +1,9 @@
-﻿using System;
+﻿using Microsoft.AspNetCore.Authorization;
+using System;
 using System.Collections.Generic;
 
 namespace AlquilerVehiculos.Models;
+
 
 public partial class TRecibo
 {

@@ -20,3 +20,140 @@ html {
 body {
   margin-bottom: 60px;
 }
+
+/* === Estilos generales de la app === */
+
+.app-body {
+    background: #f3f4f6; /* gris clarito */
+    font-family: "Segoe UI", system-ui, -apple-system, BlinkMacSystemFont, "Roboto", sans-serif;
+    min-height: 100vh;
+    display: flex;
+    flex-direction: column;
+}
+
+.main-container {
+    flex: 1;
+    padding-top: 1rem;
+    padding-bottom: 2rem;
+}
+
+/* === Navbar === */
+
+.custom-navbar {
+    background: linear-gradient(90deg, #0f172a, #1d4ed8); /* azul oscuro a azul */
+}
+
+.navbar-brand {
+    font-size: 1.25rem;
+    letter-spacing: 0.04em;
+    text-transform: uppercase;
+}
+
+.nav-link-main {
+    color: #e5e7eb !important; /* texto claro */
+    font-weight: 500;
+    position: relative;
+    margin-right: 0.5rem;
+}
+
+    /* Subrayado animado al hacer hover en los links del menú */
+    .nav-link-main::after {
+        content: "";
+        position: absolute;
+        left: 0.5rem;
+        right: 0.5rem;
+        bottom: 0.2rem;
+        height: 2px;
+        background: #facc15; /* amarillo */
+        transform: scaleX(0);
+        transform-origin: center;
+        transition: transform 0.2s ease-out;
+    }
+
+    .nav-link-main:hover::after,
+    .nav-link-main:focus::after {
+        transform: scaleX(1);
+    }
+
+    .nav-link-main:hover,
+    .nav-link-main:focus {
+        color: #fefce8 !important;
+    }
+
+/* Dropdowns */
+
+.dropdown-menu {
+    border-radius: 0.5rem;
+    border: none;
+    padding-top: 0.25rem;
+    padding-bottom: 0.25rem;
+}
+
+.dropdown-item {
+    font-size: 0.95rem;
+}
+
+    .dropdown-item:hover {
+        background-color: #e5e7eb;
+    }
+
+/* === Footer === */
+
+.app-footer {
+    background-color: #111827;
+    color: #9ca3af;
+    padding: 1rem 0;
+}
+
+    .app-footer a {
+        color: #e5e7eb;
+        text-decoration: none;
+    }
+
+        .app-footer a:hover {
+            text-decoration: underline;
+        }
+
+/* === Tarjetas y tablas (para que el contenido de los scaffolds se vea mejor) === */
+
+.card {
+    border-radius: 0.75rem;
+    border: 1px solid #e5e7eb;
+    box-shadow: 0 4px 8px rgba(15, 23, 42, 0.06);
+}
+
+.table {
+    background-color: #ffffff;
+    border-radius: 0.75rem;
+    overflow: hidden;
+}
+
+    .table thead {
+        background-color: #e5e7eb;
+    }
+
+        .table thead th {
+            border-bottom: none;
+            font-weight: 600;
+        }
+
+.btn-primary {
+    background-color: #1d4ed8;
+    border-color: #1d4ed8;
+}
+
+    .btn-primary:hover {
+        background-color: #1e40af;
+        border-color: #1e40af;
+    }
+
+/* Para los títulos generados por scaffolding */
+h1, h2, h3 {
+    color: #111827;
+}
+
+.page-title {
+    margin-bottom: 1rem;
+    font-weight: 600;
+}
+

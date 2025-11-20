@@ -1,15 +1,18 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Threading.Tasks;
+﻿using AlquilerVehiculos.Data;
+using AlquilerVehiculos.Models;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.Rendering;
 using Microsoft.EntityFrameworkCore;
-using AlquilerVehiculos.Data;
-using AlquilerVehiculos.Models;
+using System;
+using System.Collections.Generic;
+using System.Linq;
+using System.Threading.Tasks;
 
 namespace AlquilerVehiculos.Controllers
 {
+    // Vehículos: todos los roles logueados
+    [Authorize(Roles = "Empleado,Jefe,AdminApp")]
     public class TVehiculoesController : Controller
     {
         private readonly DbAlquilerVehiculosContext _context;

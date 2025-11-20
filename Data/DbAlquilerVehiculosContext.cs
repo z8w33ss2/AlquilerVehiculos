@@ -38,6 +38,8 @@ public partial class DbAlquilerVehiculosContext : DbContext
 
     public virtual DbSet<VwVehiculosDisponible> VwVehiculosDisponibles { get; set; }
 
+    public virtual DbSet<TUsuariosApp> TUsuariosApps { get; set; } = null!;
+
     /*
     protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
         => optionsBuilder.UseSqlServer("Name=ConnectionStrings:DefaultConnection");
@@ -390,6 +392,31 @@ public partial class DbAlquilerVehiculosContext : DbContext
                 .IsUnicode(false)
                 .HasColumnName("sucursal");
         });
+
+        modelBuilder.Entity<TUsuariosApp>(entity =>
+        {
+            entity.HasKey(e => e.IdUsuario);
+
+            entity.ToTable("T_UsuariosApp", "SC_AlquilerVehiculos");
+
+            entity.Property(e => e.IdUsuario).HasColumnName("id_usuario");
+
+            entity.Property(e => e.Usuario)
+                .HasMaxLength(50)
+                .IsUnicode(false)
+                .HasColumnName("usuario");
+
+            entity.Property(e => e.Contrasena)
+                .HasMaxLength(200)
+                .IsUnicode(false)
+                .HasColumnName("contrasena");
+
+            entity.Property(e => e.Rol)
+                .HasMaxLength(20)
+                .IsUnicode(false)
+                .HasColumnName("rol");
+        });
+
 
         OnModelCreatingPartial(modelBuilder);
     }
