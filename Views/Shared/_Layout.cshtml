@@ -1,0 +1,102 @@
+﻿<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>@ViewData["Title"] - AlquilerVehiculos</title>
+    <link rel="stylesheet" href="~/lib/bootstrap/dist/css/bootstrap.min.css" />
+    <link rel="stylesheet" href="~/css/site.css" asp-append-version="true" />
+    <link rel="stylesheet" href="~/AlquilerVehiculos.styles.css" asp-append-version="true" />
+</head>
+<body>
+    <header>
+        <nav class="navbar navbar-expand-sm navbar-toggleable-sm navbar-light bg-white border-bottom box-shadow mb-3">
+            <div class="container-fluid">
+                <a class="navbar-brand" asp-area="" asp-controller="Home" asp-action="Index">Rent a Car Grupo # 1</a>
+                <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target=".navbar-collapse" aria-controls="navbarSupportedContent"
+                        aria-expanded="false" aria-label="Toggle navigation">
+                    <span class="navbar-toggler-icon"></span>
+                </button>
+                <div class="navbar-collapse collapse d-sm-inline-flex justify-content-between">
+                    <ul class="navbar-nav flex-grow-1">
+                        <!-- Inicio -->
+                        <li class="nav-item">
+                            <a class="nav-link text-dark" asp-controller="Home" asp-action="Index">Inicio</a>
+                        </li>
+
+                        <!-- Clientes -->
+                        <li class="nav-item">
+                            <a class="nav-link text-dark" asp-controller="TClientes" asp-action="Index">Clientes</a>
+                        </li>
+
+                        <!-- Empleados -->
+                        <li class="nav-item">
+                            <a class="nav-link text-dark" asp-controller="TEmpleadoes" asp-action="Index">Empleados</a>
+                        </li>
+
+                        <!-- Sucursales -->
+                        <li class="nav-item">
+                            <a class="nav-link text-dark" asp-controller="TSucursales" asp-action="Index">Sucursales</a>
+                        </li>
+
+                        <!-- Vehículos (dropdown) -->
+                        <li class="nav-item dropdown">
+                            <a class="nav-link dropdown-toggle text-dark" href="#" id="vehiculosDropdown"
+                               role="button" data-bs-toggle="dropdown" aria-expanded="false">
+                                Vehículos
+                            </a>
+                            <ul class="dropdown-menu" aria-labelledby="vehiculosDropdown">
+                                <li>
+                                    <a class="dropdown-item" asp-controller="TVehiculoes" asp-action="Index">Vehículos</a>
+                                </li>
+                                <li>
+                                    <a class="dropdown-item" asp-controller="TVehiculosTipoes" asp-action="Index">Tipos de vehículos</a>
+                                </li>
+                            </ul>
+                        </li>
+
+                        <!-- Alquileres (dropdown) -->
+                        <li class="nav-item dropdown">
+                            <a class="nav-link dropdown-toggle text-dark" href="#" id="alquileresDropdown"
+                               role="button" data-bs-toggle="dropdown" aria-expanded="false">
+                                Alquileres
+                            </a>
+                            <ul class="dropdown-menu" aria-labelledby="alquileresDropdown">
+                                <li>
+                                    <a class="dropdown-item" asp-controller="TAlquileres" asp-action="Index">Alquileres</a>
+                                </li>
+                                <li>
+                                    <a class="dropdown-item" asp-controller="TAlquileresDetalles" asp-action="Index">
+                                        Detalles de alquiler
+                                    </a>
+                                </li>
+                                <li>
+                                    <a class="dropdown-item" asp-controller="TReciboes" asp-action="Index">Recibos</a>
+                                </li>
+                                <li>
+                                    <a class="dropdown-item" asp-controller="TBitacoras" asp-action="Index">Bitácoras</a>
+                                </li>
+                            </ul>
+                        </li>
+                    </ul>
+                </div>
+            </div>
+        </nav>
+    </header>
+    <div class="container">
+        <main role="main" class="pb-3">
+            @RenderBody()
+        </main>
+    </div>
+
+    <footer class="border-top footer text-muted">
+        <div class="container">
+            &copy; 2025 - AlquilerVehiculos - <a asp-area="" asp-controller="Home" asp-action="Privacy">Privacy</a>
+        </div>
+    </footer>
+    <script src="~/lib/jquery/dist/jquery.min.js"></script>
+    <script src="~/lib/bootstrap/dist/js/bootstrap.bundle.min.js"></script>
+    <script src="~/js/site.js" asp-append-version="true"></script>
+    @await RenderSectionAsync("Scripts", required: false)
+</body>
+</html>
