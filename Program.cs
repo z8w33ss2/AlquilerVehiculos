@@ -1,6 +1,6 @@
 using Microsoft.EntityFrameworkCore;
 using AlquilerVehiculos.Data;
-using Microsoft.AspNetCore.Authentication.Cookies;   // ? necesario para cookies
+using Microsoft.AspNetCore.Authentication.Cookies;   //  necesario para cookies
 
 var builder = WebApplication.CreateBuilder(args);
 

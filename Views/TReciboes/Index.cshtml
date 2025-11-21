@@ -1,47 +1,62 @@
 ﻿@model IEnumerable<AlquilerVehiculos.Models.TRecibo>
 
 @{
-    ViewData["Title"] = "Index";
+    ViewData["Title"] = "Recibos";
 }
 
-<h1>Recibos</h1>
+<h1 class="mb-4">Recibos</h1>
 
 <p>
-    <a asp-action="Create">Nuevo Registro</a>
+    <a asp-action="Create" class="btn btn-primary mb-3">
+        <i class="bi bi-plus-circle"></i> Nuevo Registro
+    </a>
 </p>
-<table class="table">
-    <thead>
+
+<table class="table table-striped table-hover shadow-sm">
+    <thead class="table-dark">
         <tr>
-            <th>
-                @Html.DisplayNameFor(model => model.FechaPago)
-            </th>
-            <th>
-                @Html.DisplayNameFor(model => model.Monto)
-            </th>
-            <th>
-                @Html.DisplayNameFor(model => model.Metodo)
-            </th>
-            <th></th>
+            <th>Fecha de Pago</th>
+            <th>Monto (₡)</th>
+            <th>Método de Pago</th>
+            <th class="text-center" style="width: 200px;">Acciones</th>
         </tr>
     </thead>
+
     <tbody>
-@foreach (var item in Model) {
-        <tr>
-            <td>
-                @Html.DisplayFor(modelItem => item.FechaPago)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.Monto)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.Metodo)
-            </td>
-            <td>
-                <a asp-action="Edit" asp-route-id="@item.IdRecibo">Editar</a> |
-                <a asp-action="Details" asp-route-id="@item.IdRecibo">Detalles</a> |
-                <a asp-action="Delete" asp-route-id="@item.IdRecibo">Eliminar</a>
-            </td>
-        </tr>
-}
+        @foreach (var item in Model)
+        {
+            <tr>
+                <!-- Fecha -->
+                <td>@item.FechaPago.ToString("dd/MM/yyyy")</td>
+
+                <!-- Monto -->
+                <td>₡ @item.Monto.ToString("#,##0.00")</td>
+
+                <!-- Método -->
+                <td>@item.Metodo</td>
+
+                <!-- ACCIONES -->
+                <td class="text-center">
+                    <div class="d-flex justify-content-center gap-2">
+
+                        <a asp-action="Edit" asp-route-id="@item.IdRecibo"
+                           class="btn btn-sm btn-warning">
+                            Editar
+                        </a>
+
+                        <a asp-action="Details" asp-route-id="@item.IdRecibo"
+                           class="btn btn-sm btn-info text-white">
+                            Detalles
+                        </a>
+
+                        <a asp-action="Delete" asp-route-id="@item.IdRecibo"
+                           class="btn btn-sm btn-danger">
+                            Eliminar
+                        </a>
+
+                    </div>
+                </td>
+            </tr>
+        }
     </tbody>
 </table>

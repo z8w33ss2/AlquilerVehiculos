@@ -142,15 +142,34 @@ namespace AlquilerVehiculos.Controllers
         [ValidateAntiForgeryToken]
         public async Task<IActionResult> DeleteConfirmed(int id)
         {
-            var tCliente = await _context.TClientes.FindAsync(id);
-            if (tCliente != null)
+            //  Verifica si el cliente tiene alquileres asociados
+            var tieneAlquileres = await _context.TAlquileres
+                .AnyAsync(a => a.IdCliente == id);
+
+            if (tieneAlquileres)
             {
-                _context.TClientes.Remove(tCliente);
+                // Mensaje en la vista (Index o Delete)
+                TempData["ErrorMensaje"] = "No se puede eliminar este cliente porque tiene alquileres asociados.";
+                return RedirectToAction(nameof(Index));
+                // Si prefieres volver a la vista Delete:
+                // var tClienteBloqueado = await _context.TClientes
+                //     .FirstOrDefaultAsync(c => c.IdCliente == id);
+                // return View("Delete", tClienteBloqueado);
             }
 
+            //  Si no tiene alquileres, se elimina normalmente
+            var tCliente = await _context.TClientes.FindAsync(id);
+            if (tCliente == null)
+            {
+                return NotFound();
+            }
+
+            _context.TClientes.Remove(tCliente);
             await _context.SaveChangesAsync();
+
             return RedirectToAction(nameof(Index));
         }
+
 
         private bool TClienteExists(int id)
         {

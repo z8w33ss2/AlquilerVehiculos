@@ -1,64 +1,104 @@
 ﻿@model AlquilerVehiculos.Models.TAlquilere
 
 @{
-    ViewData["Title"] = "Edit";
+    ViewData["Title"] = "Editar Alquiler";
 }
 
-<h1>Edit</h1>
+<h1 class="mb-4">Editar Alquiler</h1>
 
-<h4>TAlquilere</h4>
-<hr />
-<div class="row">
-    <div class="col-md-4">
-        <form asp-action="Edit">
-            <div asp-validation-summary="ModelOnly" class="text-danger"></div>
-            <input type="hidden" asp-for="IdAlquiler" />
-            <div class="form-group">
-                <label asp-for="FechaInicio" class="control-label"></label>
-                <input asp-for="FechaInicio" class="form-control" />
-                <span asp-validation-for="FechaInicio" class="text-danger"></span>
+<div class="row justify-content-center">
+    <div class="col-md-10">
+
+        <div class="card shadow-sm">
+            <div class="card-body">
+
+                <h4 class="card-title mb-3">Modificar Información del Alquiler</h4>
+                <hr />
+
+                <form asp-action="Edit">
+                    <div asp-validation-summary="ModelOnly" class="text-danger mb-3"></div>
+
+                    <input type="hidden" asp-for="IdAlquiler" />
+
+                    <table class="table table-striped table-hover shadow-sm mb-0">
+                        <thead class="table-dark">
+                            <tr>
+                                <th>Fecha Inicio</th>
+                                <th>Fecha Fin</th>
+                                <th>IVA</th>
+                                <th>Estado</th>
+                                <th>Cliente</th>
+                                <th>Empleado</th>
+                                <th>Sucursal</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr>
+                                <!-- Fecha Inicio -->
+                                <td>
+                                    <input asp-for="FechaInicio" class="form-control" />
+                                    <span asp-validation-for="FechaInicio" class="text-danger small"></span>
+                                </td>
+
+                                <!-- Fecha Fin -->
+                                <td>
+                                    <input asp-for="FechaFin" class="form-control" />
+                                    <span asp-validation-for="FechaFin" class="text-danger small"></span>
+                                </td>
+
+                                <!-- IVA -->
+                                <td>
+                                    <input asp-for="Iva" class="form-control" />
+                                    <span asp-validation-for="Iva" class="text-danger small"></span>
+                                </td>
+
+                                <!-- Estado -->
+                                <td>
+                                    <input asp-for="Estado" class="form-control" />
+                                    <span asp-validation-for="Estado" class="text-danger small"></span>
+                                </td>
+
+                                <!-- Cliente -->
+                                <td>
+                                    <select asp-for="IdCliente" class="form-select" asp-items="ViewBag.IdCliente"></select>
+                                    <span asp-validation-for="IdCliente" class="text-danger small"></span>
+                                </td>
+
+                                <!-- Empleado -->
+                                <td>
+                                    <select asp-for="IdEmpleado" class="form-select" asp-items="ViewBag.IdEmpleado"></select>
+                                    <span asp-validation-for="IdEmpleado" class="text-danger small"></span>
+                                </td>
+
+                                <!-- Sucursal -->
+                                <td>
+                                    <select asp-for="IdSucursal" class="form-select" asp-items="ViewBag.IdSucursal"></select>
+                                    <span asp-validation-for="IdSucursal" class="text-danger small"></span>
+                                </td>
+                            </tr>
+                        </tbody>
+                    </table>
+
+                    <div class="d-flex justify-content-between mt-4">
+                        <a asp-action="Index" class="btn btn-secondary">
+                            Volver a la lista
+                        </a>
+
+                        <button type="submit" class="btn btn-primary">
+                            Guardar Cambios
+                        </button>
+                    </div>
+
+                </form>
+
             </div>
-            <div class="form-group">
-                <label asp-for="FechaFin" class="control-label"></label>
-                <input asp-for="FechaFin" class="form-control" />
-                <span asp-validation-for="FechaFin" class="text-danger"></span>
-            </div>
-            <div class="form-group">
-                <label asp-for="Iva" class="control-label"></label>
-                <input asp-for="Iva" class="form-control" />
-                <span asp-validation-for="Iva" class="text-danger"></span>
-            </div>
-            <div class="form-group">
-                <label asp-for="IdCliente" class="control-label"></label>
-                <select asp-for="IdCliente" class="form-control" asp-items="ViewBag.IdCliente"></select>
-                <span asp-validation-for="IdCliente" class="text-danger"></span>
-            </div>
-            <div class="form-group">
-                <label asp-for="IdEmpleado" class="control-label"></label>
-                <select asp-for="IdEmpleado" class="form-control" asp-items="ViewBag.IdEmpleado"></select>
-                <span asp-validation-for="IdEmpleado" class="text-danger"></span>
-            </div>
-            <div class="form-group">
-                <label asp-for="IdSucursal" class="control-label"></label>
-                <select asp-for="IdSucursal" class="form-control" asp-items="ViewBag.IdSucursal"></select>
-                <span asp-validation-for="IdSucursal" class="text-danger"></span>
-            </div>
-            <div class="form-group">
-                <label asp-for="Estado" class="control-label"></label>
-                <input asp-for="Estado" class="form-control" />
-                <span asp-validation-for="Estado" class="text-danger"></span>
-            </div>
-            <div class="form-group">
-                <input type="submit" value="Save" class="btn btn-primary" />
-            </div>
-        </form>
+        </div>
+
     </div>
 </div>
 
-<div>
-    <a asp-action="Index">Back to List</a>
-</div>
-
 @section Scripts {
-    @{await Html.RenderPartialAsync("_ValidationScriptsPartial");}
+    @{
+        await Html.RenderPartialAsync("_ValidationScriptsPartial");
+    }
 }

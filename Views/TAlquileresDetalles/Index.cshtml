@@ -1,65 +1,74 @@
 ﻿@model IEnumerable<AlquilerVehiculos.Models.TAlquileresDetalle>
 
 @{
-    ViewData["Title"] = "Index";
+    ViewData["Title"] = "Detalles de Alquiler";
 }
 
-<h1>Alquileres Detalles</h1>
+<h1 class="mb-4">Detalles de Alquiler</h1>
 
 <p>
-    <a asp-action="Create">Nuevo Registro</a>
+    <a asp-action="Create" class="btn btn-primary mb-3">
+        <i class="bi bi-plus-circle"></i> Nuevo Registro
+    </a>
 </p>
-<table class="table">
-    <thead>
+
+<table class="table table-striped table-hover shadow-sm">
+    <thead class="table-dark">
         <tr>
-            <th>
-                @Html.DisplayNameFor(model => model.TarifaDiaria)
-            </th>
-            <th>
-                @Html.DisplayNameFor(model => model.FechaInicio)
-            </th>
-            <th>
-                @Html.DisplayNameFor(model => model.FechaFin)
-            </th>
-            <th>
-                @Html.DisplayNameFor(model => model.Subtotal)
-            </th>
-            <th>
-                @Html.DisplayNameFor(model => model.IdAlquilerNavigation)
-            </th>
-            <th>
-                @Html.DisplayNameFor(model => model.IdVehiculoNavigation)
-            </th>
-            <th></th>
+            <th>Tarifa Diaria</th>
+            <th>Fecha Inicio</th>
+            <th>Fecha Fin</th>
+            <th>Subtotal</th>
+            <th>Alquiler #</th>
+            <th>Vehículo</th>
+            <th class="text-center" style="width:200px;">Acciones</th>
         </tr>
     </thead>
+
     <tbody>
-@foreach (var item in Model) {
-        <tr>
-            <td>
-                @Html.DisplayFor(modelItem => item.TarifaDiaria)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.FechaInicio)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.FechaFin)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.Subtotal)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.IdAlquilerNavigation.IdAlquiler)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.IdVehiculoNavigation.IdVehiculo)
-            </td>
-            <td>
-                <a asp-action="Edit" asp-route-id="@item.IdDetalle">Editar</a> |
-                <a asp-action="Details" asp-route-id="@item.IdDetalle">Detalles</a> |
-                <a asp-action="Delete" asp-route-id="@item.IdDetalle">Eliminar</a>
-            </td>
-        </tr>
-}
+        @foreach (var item in Model)
+        {
+            <tr>
+                <!-- Tarifa diaria -->
+                <td>
+                    ₡ @item.TarifaDiaria.ToString("#,##0.00")
+                </td>
+
+                <!-- Fechas -->
+                <td>@item.FechaInicio.ToString("dd/MM/yyyy")</td>
+                <td>@item.FechaFin.ToString("dd/MM/yyyy")</td>
+
+                <!-- Subtotal -->
+                <td>₡ @item.Subtotal.ToString("#,##0.00")</td>
+
+                <!-- Número de alquiler -->
+                <td>@item.IdAlquilerNavigation?.IdAlquiler</td>
+
+                <!-- Vehículo (mostrar la placa o modelo en vez ID) -->
+                <td>@item.IdVehiculoNavigation?.Placa</td>
+
+                <!-- Acciones -->
+                <td class="text-center">
+                    <div class="d-flex justify-content-center gap-2">
+
+                        <a asp-action="Edit" asp-route-id="@item.IdDetalle"
+                           class="btn btn-sm btn-warning">
+                            Editar
+                        </a>
+
+                        <a asp-action="Details" asp-route-id="@item.IdDetalle"
+                           class="btn btn-sm btn-info text-white">
+                            Detalles
+                        </a>
+
+                        <a asp-action="Delete" asp-route-id="@item.IdDetalle"
+                           class="btn btn-sm btn-danger">
+                            Eliminar
+                        </a>
+
+                    </div>
+                </td>
+            </tr>
+        }
     </tbody>
 </table>

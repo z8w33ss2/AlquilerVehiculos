@@ -1,48 +1,47 @@
 ﻿@model AlquilerVehiculos.Models.TCliente
 
 @{
-    ViewData["Title"] = "Details";
+    ViewData["Title"] = "Detalles del Cliente";
 }
 
-<h1>Details</h1>
+<h1 class="mb-4">Detalles del Cliente</h1>
 
-<div>
-    <h4>TCliente</h4>
-    <hr />
-    <dl class="row">
-        <dt class = "col-sm-2">
-            @Html.DisplayNameFor(model => model.Nombre)
-        </dt>
-        <dd class = "col-sm-10">
-            @Html.DisplayFor(model => model.Nombre)
-        </dd>
-        <dt class = "col-sm-2">
-            @Html.DisplayNameFor(model => model.Cedula)
-        </dt>
-        <dd class = "col-sm-10">
-            @Html.DisplayFor(model => model.Cedula)
-        </dd>
-        <dt class = "col-sm-2">
-            @Html.DisplayNameFor(model => model.Telefono)
-        </dt>
-        <dd class = "col-sm-10">
-            @Html.DisplayFor(model => model.Telefono)
-        </dd>
-        <dt class = "col-sm-2">
-            @Html.DisplayNameFor(model => model.Email)
-        </dt>
-        <dd class = "col-sm-10">
-            @Html.DisplayFor(model => model.Email)
-        </dd>
-        <dt class = "col-sm-2">
-            @Html.DisplayNameFor(model => model.Direccion)
-        </dt>
-        <dd class = "col-sm-10">
-            @Html.DisplayFor(model => model.Direccion)
-        </dd>
-    </dl>
-</div>
-<div>
-    <a asp-action="Edit" asp-route-id="@Model?.IdCliente">Edit</a> |
-    <a asp-action="Index">Back to List</a>
+<div class="card shadow-sm">
+    <div class="card-body">
+
+        <h4 class="card-title mb-3">
+            Información del Cliente
+        </h4>
+        <hr />
+
+        <dl class="row">
+
+            <dt class="col-sm-3 fw-bold">@Html.DisplayNameFor(model => model.Nombre)</dt>
+            <dd class="col-sm-9">@Html.DisplayFor(model => model.Nombre)</dd>
+
+            <dt class="col-sm-3 fw-bold">@Html.DisplayNameFor(model => model.Cedula)</dt>
+            <dd class="col-sm-9">@Html.DisplayFor(model => model.Cedula)</dd>
+
+            <dt class="col-sm-3 fw-bold">@Html.DisplayNameFor(model => model.Telefono)</dt>
+            <dd class="col-sm-9">@Html.DisplayFor(model => model.Telefono)</dd>
+
+            <dt class="col-sm-3 fw-bold">@Html.DisplayNameFor(model => model.Email)</dt>
+            <dd class="col-sm-9">@Html.DisplayFor(model => model.Email)</dd>
+
+            <dt class="col-sm-3 fw-bold">@Html.DisplayNameFor(model => model.Direccion)</dt>
+            <dd class="col-sm-9">@Html.DisplayFor(model => model.Direccion)</dd>
+
+        </dl>
+
+        <div class="d-flex justify-content-between mt-4">
+            <a asp-action="Index" class="btn btn-secondary">
+                Volver a la lista
+            </a>
+
+            <a asp-action="Edit" asp-route-id="@Model?.IdCliente" class="btn btn-primary">
+                Editar Cliente
+            </a>
+        </div>
+
+    </div>
 </div>
