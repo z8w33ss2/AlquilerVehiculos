@@ -23,11 +23,11 @@ public partial class TAlquilere
 
     public string Estado { get; set; } = null!;
 
-    public virtual TCliente IdClienteNavigation { get; set; } = null!;
+    public virtual TCliente? IdClienteNavigation { get; set; } 
 
-    public virtual TEmpleado IdEmpleadoNavigation { get; set; } = null!;
+    public virtual TEmpleado? IdEmpleadoNavigation { get; set; } 
 
-    public virtual TSucursale IdSucursalNavigation { get; set; } = null!;
+    public virtual TSucursale? IdSucursalNavigation { get; set; }
 
     public virtual ICollection<TAlquileresDetalle> TAlquileresDetalles { get; set; } = new List<TAlquileresDetalle>();
 

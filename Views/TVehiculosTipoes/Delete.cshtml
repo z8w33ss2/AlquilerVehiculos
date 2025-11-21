@@ -25,7 +25,7 @@
             <dd class="col-sm-9">@Html.DisplayFor(model => model.Descripcion)</dd>
 
             <dt class="col-sm-3 fw-bold">@Html.DisplayNameFor(model => model.TarifaDiaria)</dt>
-            <dd class="col-sm-9">@Html.DisplayFor(model => model.TarifaDiaria.ToString("0.00"))</dd>
+            <dd class="col-sm-9">@Html.DisplayFor(model => model.TarifaDiaria)</dd>
 
         </dl>
 
@@ -39,7 +39,7 @@
                 @* Ocultamos el Id del cliente para el POST *@
                 <input type="hidden" asp-for="IdTipo" />
                 <button type="submit" class="btn btn-danger">
-                    Eliminar Cliente
+                    Eliminar Vehiculo Tipo
                 </button>
             </form>
 

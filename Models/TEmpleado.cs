@@ -19,7 +19,8 @@ public partial class TEmpleado
 
     public int IdSucursal { get; set; }
 
-    public virtual TSucursale IdSucursalNavigation { get; set; } = null!;
+    // Ahora es nullable -> ya no se valida como requerido
+    public virtual TSucursale? IdSucursalNavigation { get; set; }
 
     public virtual ICollection<TAlquilere> TAlquileres { get; set; } = new List<TAlquilere>();
 }

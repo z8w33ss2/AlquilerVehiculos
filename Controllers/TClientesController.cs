@@ -3,6 +3,7 @@ using AlquilerVehiculos.Models;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.Rendering;
+using Microsoft.Data.SqlClient;
 using Microsoft.EntityFrameworkCore;
 using System;
 using System.Collections.Generic;
@@ -53,19 +54,36 @@ namespace AlquilerVehiculos.Controllers
         }
 
         // POST: TClientes/Create
-        // To protect from overposting attacks, enable the specific properties you want to bind to.
-        // For more details, see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
         public async Task<IActionResult> Create([Bind("IdCliente,Nombre,Cedula,Telefono,Email,Direccion")] TCliente tCliente)
         {
-            if (ModelState.IsValid)
+            if (!ModelState.IsValid)
             {
-                _context.Add(tCliente);
-                await _context.SaveChangesAsync();
+                return View(tCliente);
+            }
+
+            try
+            {
+                var sql = "EXEC SC_AlquilerVehiculos.SP_ClienteInsert " +
+                          "@nombre, @cedula, @telefono, @email, @direccion";
+
+                await _context.Database.ExecuteSqlRawAsync(
+                    sql,
+                    new SqlParameter("@nombre", tCliente.Nombre),
+                    new SqlParameter("@cedula", tCliente.Cedula),
+                    new SqlParameter("@telefono", (object?)tCliente.Telefono ?? DBNull.Value),
+                    new SqlParameter("@email", (object?)tCliente.Email ?? DBNull.Value),
+                    new SqlParameter("@direccion", (object?)tCliente.Direccion ?? DBNull.Value)
+                );
+
                 return RedirectToAction(nameof(Index));
             }
-            return View(tCliente);
+            catch (Exception ex)
+            {
+                ModelState.AddModelError(string.Empty, $"Error al ejecutar SP_ClienteInsert: {ex.Message}");
+                return View(tCliente);
+            }
         }
 
         // GET: TClientes/Edit/5
@@ -85,8 +103,6 @@ namespace AlquilerVehiculos.Controllers
         }
 
         // POST: TClientes/Edit/5
-        // To protect from overposting attacks, enable the specific properties you want to bind to.
-        // For more details, see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
         public async Task<IActionResult> Edit(int id, [Bind("IdCliente,Nombre,Cedula,Telefono,Email,Direccion")] TCliente tCliente)
@@ -96,27 +112,33 @@ namespace AlquilerVehiculos.Controllers
                 return NotFound();
             }
 
-            if (ModelState.IsValid)
+            if (!ModelState.IsValid)
             {
-                try
-                {
-                    _context.Update(tCliente);
-                    await _context.SaveChangesAsync();
-                }
-                catch (DbUpdateConcurrencyException)
-                {
-                    if (!TClienteExists(tCliente.IdCliente))
-                    {
-                        return NotFound();
-                    }
-                    else
-                    {
-                        throw;
-                    }
-                }
+                return View(tCliente);
+            }
+
+            try
+            {
+                var sql = "EXEC SC_AlquilerVehiculos.SP_ClienteUpdate " +
+                          "@id_cliente, @nombre, @cedula, @telefono, @email, @direccion";
+
+                await _context.Database.ExecuteSqlRawAsync(
+                    sql,
+                    new SqlParameter("@id_cliente", tCliente.IdCliente),
+                    new SqlParameter("@nombre", tCliente.Nombre),
+                    new SqlParameter("@cedula", tCliente.Cedula),
+                    new SqlParameter("@telefono", (object?)tCliente.Telefono ?? DBNull.Value),
+                    new SqlParameter("@email", (object?)tCliente.Email ?? DBNull.Value),
+                    new SqlParameter("@direccion", (object?)tCliente.Direccion ?? DBNull.Value)
+                );
+
                 return RedirectToAction(nameof(Index));
             }
-            return View(tCliente);
+            catch (Exception ex)
+            {
+                ModelState.AddModelError(string.Empty, $"Error al ejecutar SP_ClienteUpdate: {ex.Message}");
+                return View(tCliente);
+            }
         }
 
         // GET: TClientes/Delete/5
@@ -142,33 +164,38 @@ namespace AlquilerVehiculos.Controllers
         [ValidateAntiForgeryToken]
         public async Task<IActionResult> DeleteConfirmed(int id)
         {
-            //  Verifica si el cliente tiene alquileres asociados
+            // 1. Verifica si el cliente tiene alquileres asociados
             var tieneAlquileres = await _context.TAlquileres
                 .AnyAsync(a => a.IdCliente == id);
 
             if (tieneAlquileres)
             {
-                // Mensaje en la vista (Index o Delete)
                 TempData["ErrorMensaje"] = "No se puede eliminar este cliente porque tiene alquileres asociados.";
-                return RedirectToAction(nameof(Delete));
-                // Si prefieres volver a la vista Delete:
-                 //var tClienteBloqueado = await _context.TClientes
-                   // .FirstOrDefaultAsync(c => c.IdCliente == id);
-                 //return View("Delete", tClienteBloqueado);
+                return RedirectToAction(nameof(Delete), new { id });
             }
 
-            //  Si no tiene alquileres, se elimina normalmente
-            var tCliente = await _context.TClientes.FindAsync(id);
-            if (tCliente == null)
+            try
             {
-                return NotFound();
+                // 2. Ejecuta el SP de eliminación
+                var sql = "EXEC SC_AlquilerVehiculos.SP_ClienteDelete @id_cliente";
+
+                await _context.Database.ExecuteSqlRawAsync(
+                    sql,
+                    new SqlParameter("@id_cliente", id)
+                );
+
+                // 3. Si todo salió bien
+                return RedirectToAction(nameof(Index));
             }
-
-            _context.TClientes.Remove(tCliente);
-            await _context.SaveChangesAsync();
-
-            return RedirectToAction(nameof(Index));
+            catch (Exception ex)
+            {
+                // 4. Manejo de errores genérico (puedes afinarlo si tienes FKs específicas)
+                TempData["ErrorMensaje"] =
+                    $"Error al ejecutar SP_ClienteDelete: {ex.Message}";
+                return RedirectToAction(nameof(Delete), new { id });
+            }
         }
+
 
 
         private bool TClienteExists(int id)

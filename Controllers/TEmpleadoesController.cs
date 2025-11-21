@@ -122,7 +122,7 @@ namespace AlquilerVehiculos.Controllers
                 var sql = "EXEC SC_AlquilerVehiculos.SP_EmpleadoUpdate " +
                           "@id_empleado, @nombre, @correo, @telefono, @puesto, @id_sucursal";
 
-                var result = await _context.Database.ExecuteSqlRawAsync(
+                await _context.Database.ExecuteSqlRawAsync(
                     sql,
                     new SqlParameter("@id_empleado", tEmpleado.IdEmpleado),
                     new SqlParameter("@nombre", tEmpleado.Nombre),
@@ -132,13 +132,7 @@ namespace AlquilerVehiculos.Controllers
                     new SqlParameter("@id_sucursal", tEmpleado.IdSucursal)
                 );
 
-                if (result <= 0)
-                {
-                    ModelState.AddModelError(string.Empty, "El SP no actualizó ningún registro.");
-                    ViewData["IdSucursal"] = new SelectList(_context.TSucursales, "IdSucursal", "Nombre", tEmpleado.IdSucursal);
-                    return View(tEmpleado);
-                }
-
+                
                 return RedirectToAction(nameof(Index));
             }
             catch (Exception ex)
@@ -174,16 +168,10 @@ namespace AlquilerVehiculos.Controllers
             {
                 var sql = "EXEC SC_AlquilerVehiculos.SP_EmpleadoDelete @id_empleado";
 
-                var result = await _context.Database.ExecuteSqlRawAsync(
+                await _context.Database.ExecuteSqlRawAsync(
                     sql,
                     new SqlParameter("@id_empleado", id)
                 );
-
-                if (result <= 0)
-                {
-                    ModelState.AddModelError(string.Empty, "El SP no eliminó ningún registro.");
-                    return RedirectToAction(nameof(Index));
-                }
 
                 return RedirectToAction(nameof(Index));
             }

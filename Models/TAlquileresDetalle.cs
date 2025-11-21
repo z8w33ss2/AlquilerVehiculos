@@ -19,7 +19,7 @@ public partial class TAlquileresDetalle
 
     public decimal Subtotal { get; set; }
 
-    public virtual TAlquilere IdAlquilerNavigation { get; set; } = null!;
+    public virtual TAlquilere? IdAlquilerNavigation { get; set; }
 
-    public virtual TVehiculo IdVehiculoNavigation { get; set; } = null!;
+    public virtual TVehiculo? IdVehiculoNavigation { get; set; }
 }
