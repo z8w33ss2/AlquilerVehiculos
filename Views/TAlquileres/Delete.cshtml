@@ -6,56 +6,84 @@
 
 <h1 class="mb-4">Eliminar Alquiler</h1>
 
+@* Mensaje de error si el cliente tiene detalles de alquileres asociados *@
+@if (TempData["ErrorMensaje"] != null)
+{
+    <div class="alert alert-light border-danger shadow-sm mt-3 alert-dismissible fade show" role="alert">
+        <h5 class="mb-1 text-danger fw-bold">
+            <i class="bi bi-x-octagon-fill"></i>
+            Operación no permitida
+        </h5>
+        <p class="mb-0 text-danger fw-semibold">@TempData["ErrorMensaje"]</p>
+
+        <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+    </div>
+}
+
 <div class="card shadow-sm">
     <div class="card-body">
 
-        <h4 class="card-title mb-3 text-danger">
-            <i class="bi bi-exclamation-triangle"></i> Confirmar eliminación
+        <h4 class="card-title mb-3">
+            Confirmación de eliminación
         </h4>
-
-        <p class="mb-4">¿Está seguro de que desea eliminar este alquiler?</p>
 
         <hr />
 
-        <!-- TABLA DETALLE DEL ALQUILER -->
-        <table class="table table-striped table-hover shadow-sm">
-            <thead class="table-dark">
-                <tr>
-                    <th>Fecha Inicio</th>
-                    <th>Fecha Fin</th>
-                    <th>IVA</th>
-                    <th>Estado</th>
-                    <th>Cliente</th>
-                    <th>Empleado</th>
-                    <th>Sucursal</th>
-                </tr>
-            </thead>
+        <div class="alert alert-danger" role="alert">
+            ¿Está seguro que desea eliminar este alquiler?
+            <strong>Esta acción no se puede deshacer.</strong>
+        </div>
 
-            <tbody>
-                <tr>
-                    <td>@Model.FechaInicio.ToString("dd/MM/yyyy")</td>
-                    <td>@Model.FechaFin?.ToString("dd/MM/yyyy")</td>
-                    <td>@Model.Iva.ToString("0.00") %</td>
-                    <td>@Model.Estado</td>
-                    <td>@Model.IdClienteNavigation?.Nombre</td>
-                    <td>@Model.IdEmpleadoNavigation?.Nombre</td>
-                    <td>@Model.IdSucursalNavigation?.Nombre</td>
-                </tr>
-            </tbody>
-        </table>
+        <dl class="row">
 
-        <!-- ACCIONES -->
+            <dt class="col-sm-3 fw-bold">Fecha Inicio</dt>
+            <dd class="col-sm-9">
+                @Model.FechaInicio.ToString("dd/MM/yyyy")
+            </dd>
+
+            <dt class="col-sm-3 fw-bold">Fecha Fin</dt>
+            <dd class="col-sm-9">
+                @Model.FechaFin?.ToString("dd/MM/yyyy")
+            </dd>
+
+            <dt class="col-sm-3 fw-bold">IVA</dt>
+            <dd class="col-sm-9">
+                @Model.Iva.ToString("0.00") %
+            </dd>
+
+            <dt class="col-sm-3 fw-bold">Estado</dt>
+            <dd class="col-sm-9">
+                @Model.Estado
+            </dd>
+
+            <dt class="col-sm-3 fw-bold">Cliente</dt>
+            <dd class="col-sm-9">
+                @Model.IdClienteNavigation?.Nombre
+            </dd>
+
+            <dt class="col-sm-3 fw-bold">Empleado</dt>
+            <dd class="col-sm-9">
+                @Model.IdEmpleadoNavigation?.Nombre
+            </dd>
+
+            <dt class="col-sm-3 fw-bold">Sucursal</dt>
+            <dd class="col-sm-9">
+                @Model.IdSucursalNavigation?.Nombre
+            </dd>
+
+        </dl>
+
         <form asp-action="Delete" class="mt-4">
             <input type="hidden" asp-for="IdAlquiler" />
 
             <div class="d-flex justify-content-between">
 
                 <a asp-action="Index" class="btn btn-secondary">
-                    Volver a la lista
+                    Cancelar
                 </a>
 
                 <button type="submit" class="btn btn-danger">
-                    <i class="bi bi-trash"></i> Eliminar
+                    Eliminar Alquiler
                 </button>
 
             </div>

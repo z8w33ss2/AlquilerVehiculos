@@ -150,11 +150,11 @@ namespace AlquilerVehiculos.Controllers
             {
                 // Mensaje en la vista (Index o Delete)
                 TempData["ErrorMensaje"] = "No se puede eliminar este cliente porque tiene alquileres asociados.";
-                return RedirectToAction(nameof(Index));
+                return RedirectToAction(nameof(Delete));
                 // Si prefieres volver a la vista Delete:
-                // var tClienteBloqueado = await _context.TClientes
-                //     .FirstOrDefaultAsync(c => c.IdCliente == id);
-                // return View("Delete", tClienteBloqueado);
+                 //var tClienteBloqueado = await _context.TClientes
+                   // .FirstOrDefaultAsync(c => c.IdCliente == id);
+                 //return View("Delete", tClienteBloqueado);
             }
 
             //  Si no tiene alquileres, se elimina normalmente

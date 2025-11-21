@@ -12,46 +12,30 @@
         <h4 class="card-title mb-3">Información del Alquiler</h4>
         <hr />
 
-        <table class="table table-striped table-hover">
-            <tbody>
+        <dl class="row">
 
-                <tr>
-                    <th class="table-dark" style="width: 30%;">Fecha Inicio</th>
-                    <td>@Model.FechaInicio.ToString("dd/MM/yyyy")</td>
-                </tr>
+            <dt class="col-sm-3 fw-bold">Fecha Inicio</dt>
+            <dd class="col-sm-9">@Model.FechaInicio.ToString("dd/MM/yyyy")</dd>
 
-                <tr>
-                    <th class="table-dark">Fecha Fin</th>
-                    <td>@Model.FechaFin?.ToString("dd/MM/yyyy")</td>
-                </tr>
+            <dt class="col-sm-3 fw-bold">Fecha Fin</dt>
+            <dd class="col-sm-9">@Model.FechaFin?.ToString("dd/MM/yyyy")</dd>
 
-                <tr>
-                    <th class="table-dark">IVA</th>
-                    <td>@Model.Iva.ToString("0.00") %</td>
-                </tr>
+            <dt class="col-sm-3 fw-bold">IVA</dt>
+            <dd class="col-sm-9">@Model.Iva.ToString("0.00") %</dd>
 
-                <tr>
-                    <th class="table-dark">Estado</th>
-                    <td>@Model.Estado</td>
-                </tr>
+            <dt class="col-sm-3 fw-bold">Estado</dt>
+            <dd class="col-sm-9">@Model.Estado</dd>
 
-                <tr>
-                    <th class="table-dark">Cliente</th>
-                    <td>@Model.IdClienteNavigation?.Nombre</td>
-                </tr>
+            <dt class="col-sm-3 fw-bold">Cliente</dt>
+            <dd class="col-sm-9">@Model.IdClienteNavigation?.Nombre</dd>
 
-                <tr>
-                    <th class="table-dark">Empleado</th>
-                    <td>@Model.IdEmpleadoNavigation?.Nombre</td>
-                </tr>
+            <dt class="col-sm-3 fw-bold">Empleado</dt>
+            <dd class="col-sm-9">@Model.IdEmpleadoNavigation?.Nombre</dd>
 
-                <tr>
-                    <th class="table-dark">Sucursal</th>
-                    <td>@Model.IdSucursalNavigation?.Nombre</td>
-                </tr>
+            <dt class="col-sm-3 fw-bold">Sucursal</dt>
+            <dd class="col-sm-9">@Model.IdSucursalNavigation?.Nombre</dd>
 
-            </tbody>
-        </table>
+        </dl>
 
         <div class="d-flex justify-content-between mt-4">
             <a asp-action="Index" class="btn btn-secondary">
@@ -59,7 +43,7 @@
             </a>
 
             <a asp-action="Edit" asp-route-id="@Model?.IdAlquiler"
-               class="btn btn-warning">
+               class="btn btn-primary">
                 Editar Alquiler
             </a>
         </div>

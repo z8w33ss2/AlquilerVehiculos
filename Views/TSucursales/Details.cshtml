@@ -1,36 +1,42 @@
 ﻿@model AlquilerVehiculos.Models.TSucursale
 
 @{
-    ViewData["Title"] = "Details";
+    ViewData["Title"] = "Detalles de Sucursal";
 }
 
-<h1>Details</h1>
+<h1 class="mb-4">Detalles de Sucursal</h1>
 
-<div>
-    <h4>TSucursale</h4>
-    <hr />
-    <dl class="row">
-        <dt class = "col-sm-2">
-            @Html.DisplayNameFor(model => model.Nombre)
-        </dt>
-        <dd class = "col-sm-10">
-            @Html.DisplayFor(model => model.Nombre)
-        </dd>
-        <dt class = "col-sm-2">
-            @Html.DisplayNameFor(model => model.Telefono)
-        </dt>
-        <dd class = "col-sm-10">
-            @Html.DisplayFor(model => model.Telefono)
-        </dd>
-        <dt class = "col-sm-2">
-            @Html.DisplayNameFor(model => model.Direccion)
-        </dt>
-        <dd class = "col-sm-10">
-            @Html.DisplayFor(model => model.Direccion)
-        </dd>
-    </dl>
+<div class="card shadow-sm">
+    <div class="card-body">
+
+        <h4 class="card-title mb-3">
+            Información de la Sucursal
+        </h4>
+        <hr />
+
+        <dl class="row">
+
+            <dt class="col-sm-3 fw-bold">@Html.DisplayNameFor(model => model.Nombre)</dt>
+            <dd class="col-sm-9">@Html.DisplayFor(model => model.Nombre)</dd>
+
+            <dt class="col-sm-3 fw-bold">@Html.DisplayNameFor(model => model.Telefono)</dt>
+            <dd class="col-sm-9">@Html.DisplayFor(model => model.Telefono)</dd>
+
+            <dt class="col-sm-3 fw-bold">@Html.DisplayNameFor(model => model.Direccion)</dt>
+            <dd class="col-sm-9">@Html.DisplayFor(model => model.Direccion)</dd>
+
+        </dl>
+
+        <div class="d-flex justify-content-between mt-4">
+            <a asp-action="Index" class="btn btn-secondary">
+                Volver a la lista
+            </a>
+
+            <a asp-action="Edit" asp-route-id="@Model?.IdSucursal" class="btn btn-primary">
+                Editar Cliente
+            </a>
+        </div>
+
+    </div>
 </div>
-<div>
-    <a asp-action="Edit" asp-route-id="@Model?.IdSucursal">Edit</a> |
-    <a asp-action="Index">Back to List</a>
-</div>
+

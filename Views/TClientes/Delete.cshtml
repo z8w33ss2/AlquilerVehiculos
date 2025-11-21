@@ -6,7 +6,21 @@
 
 <h1 class="mb-4">Eliminar Cliente</h1>
 
-<div class="card shadow-sm">
+@* Mensaje de error si el cliente tiene alquileres asociados *@
+@if (TempData["ErrorMensaje"] != null)
+{
+    <div class="alert alert-light border-danger shadow-sm mt-3 alert-dismissible fade show" role="alert">
+        <h5 class="mb-1 text-danger fw-bold">
+            <i class="bi bi-x-octagon-fill"></i>
+            Operación no permitida
+        </h5>
+        <p class="mb-0 text-danger fw-semibold">@TempData["ErrorMensaje"]</p>
+
+        <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+    </div>
+}
+
+<div class="card shadow-sm mt-3">
     <div class="card-body">
 
         <h4 class="card-title mb-3">

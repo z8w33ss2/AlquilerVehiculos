@@ -160,15 +160,51 @@ namespace AlquilerVehiculos.Controllers
         [ValidateAntiForgeryToken]
         public async Task<IActionResult> DeleteConfirmed(int id)
         {
-            var tAlquilere = await _context.TAlquileres.FindAsync(id);
-            if (tAlquilere != null)
+            // Verifica si el alquiler tiene DETALLES asociados
+            var tieneDetalles = await _context.TAlquileresDetalles
+                .AnyAsync(d => d.IdAlquiler == id);
+
+            if (tieneDetalles)
             {
-                _context.TAlquileres.Remove(tAlquilere);
+                TempData["ErrorMensaje"] =
+                    "No se puede eliminar este alquiler porque posee detalles de alquiler asociados.";
+                return RedirectToAction(nameof(Delete));
             }
 
-            await _context.SaveChangesAsync();
+            // Busca el alquiler
+            var alquiler = await _context.TAlquileres.FindAsync(id);
+            if (alquiler == null)
+            {
+                return NotFound();
+            }
+
+            // Marca para eliminar
+            _context.TAlquileres.Remove(alquiler);
+
+            // Guarda cambios con manejo de errores por FK (recibos asociados)
+            try
+            {
+                await _context.SaveChangesAsync();
+            }
+            catch (DbUpdateException ex)
+            {
+                // Si el error viene de la FK de recibos, mostramos mensaje amigable
+                if (ex.InnerException?.Message.Contains("FK_AlqRec_Recibos") == true)
+                {
+                    TempData["ErrorMensaje"] =
+                        "No se puede eliminar este alquiler porque posee recibos asociados.";
+                    return RedirectToAction(nameof(Delete));
+                }
+
+                // Si es otro error, lo volvemos a lanzar para no ocultarlo
+                throw;
+            }
+
+            // 5. Si todo salió bien
             return RedirectToAction(nameof(Index));
         }
+
+
 
         private bool TAlquilereExists(int id)
         {

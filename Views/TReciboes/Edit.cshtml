@@ -1,44 +1,66 @@
 ﻿@model AlquilerVehiculos.Models.TRecibo
 
 @{
-    ViewData["Title"] = "Edit";
+    ViewData["Title"] = "Editar Recibo";
 }
 
-<h1>Edit</h1>
+<h1 class="mb-4">Editar Recibo</h1>
 
-<h4>TRecibo</h4>
-<hr />
-<div class="row">
-    <div class="col-md-4">
-        <form asp-action="Edit">
-            <div asp-validation-summary="ModelOnly" class="text-danger"></div>
-            <input type="hidden" asp-for="IdRecibo" />
-            <div class="form-group">
-                <label asp-for="FechaPago" class="control-label"></label>
-                <input asp-for="FechaPago" class="form-control" />
-                <span asp-validation-for="FechaPago" class="text-danger"></span>
+<div class="row justify-content-center">
+    <div class="col-md-6">
+
+        <div class="card shadow-sm">
+            <div class="card-body">
+
+                <h4 class="card-title mb-3">Modificar Información</h4>
+                <hr />
+
+                <form asp-action="Edit">
+                    <div asp-validation-summary="ModelOnly" class="text-danger mb-3"></div>
+
+                    <input type="hidden" asp-for="IdRecibo" />
+
+                    <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+                    <input type="hidden" asp-for="IdRecibo" />
+                    <div class="form-group">
+                        <label asp-for="FechaPago" class="control-label"></label>
+                        <input asp-for="FechaPago" class="form-control" />
+                        <span asp-validation-for="FechaPago" class="text-danger"></span>
+                    </div>
+                    <div class="form-group">
+                        <label asp-for="Monto" class="control-label"></label>
+                        <input asp-for="Monto" class="form-control" />
+                        <span asp-validation-for="Monto" class="text-danger"></span>
+                    </div>
+                    <div class="form-group">
+                        <label asp-for="Metodo" class="control-label"></label>
+                        <input asp-for="Metodo" class="form-control" />
+                        <span asp-validation-for="Metodo" class="text-danger"></span>
+                    </div>
+                    <div class="form-group">
+                        <input type="submit" value="Save" class="btn btn-primary" />
+                    </div>
+
+                    <div class="d-flex justify-content-between mt-4">
+                        <a asp-action="Index" class="btn btn-secondary">
+                            Volver a la lista
+                        </a>
+
+                        <button type="submit" class="btn btn-primary">
+                            Guardar Cambios
+                        </button>
+                    </div>
+
+                </form>
+
             </div>
-            <div class="form-group">
-                <label asp-for="Monto" class="control-label"></label>
-                <input asp-for="Monto" class="form-control" />
-                <span asp-validation-for="Monto" class="text-danger"></span>
-            </div>
-            <div class="form-group">
-                <label asp-for="Metodo" class="control-label"></label>
-                <input asp-for="Metodo" class="form-control" />
-                <span asp-validation-for="Metodo" class="text-danger"></span>
-            </div>
-            <div class="form-group">
-                <input type="submit" value="Save" class="btn btn-primary" />
-            </div>
-        </form>
+        </div>
+
     </div>
 </div>
 
-<div>
-    <a asp-action="Index">Back to List</a>
-</div>
-
 @section Scripts {
-    @{await Html.RenderPartialAsync("_ValidationScriptsPartial");}
+    @{
+        await Html.RenderPartialAsync("_ValidationScriptsPartial");
+    }
 }

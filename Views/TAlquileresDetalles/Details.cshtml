@@ -1,54 +1,45 @@
 ﻿@model AlquilerVehiculos.Models.TAlquileresDetalle
 
 @{
-    ViewData["Title"] = "Details";
+    ViewData["Title"] = "Detalle de Alquiler";
 }
 
-<h1>Details</h1>
+<h1>Detalle de Alquiler</h1>
 
 <div>
-    <h4>TAlquileresDetalle</h4>
+    <h4>Detalle de Alquiler</h4>
     <hr />
     <dl class="row">
-        <dt class = "col-sm-2">
-            @Html.DisplayNameFor(model => model.TarifaDiaria)
-        </dt>
-        <dd class = "col-sm-10">
-            @Html.DisplayFor(model => model.TarifaDiaria)
-        </dd>
-        <dt class = "col-sm-2">
-            @Html.DisplayNameFor(model => model.FechaInicio)
-        </dt>
-        <dd class = "col-sm-10">
-            @Html.DisplayFor(model => model.FechaInicio)
-        </dd>
-        <dt class = "col-sm-2">
-            @Html.DisplayNameFor(model => model.FechaFin)
-        </dt>
-        <dd class = "col-sm-10">
-            @Html.DisplayFor(model => model.FechaFin)
-        </dd>
-        <dt class = "col-sm-2">
-            @Html.DisplayNameFor(model => model.Subtotal)
-        </dt>
-        <dd class = "col-sm-10">
-            @Html.DisplayFor(model => model.Subtotal)
-        </dd>
-        <dt class = "col-sm-2">
-            @Html.DisplayNameFor(model => model.IdAlquilerNavigation)
-        </dt>
-        <dd class = "col-sm-10">
-            @Html.DisplayFor(model => model.IdAlquilerNavigation.IdAlquiler)
-        </dd>
-        <dt class = "col-sm-2">
-            @Html.DisplayNameFor(model => model.IdVehiculoNavigation)
-        </dt>
-        <dd class = "col-sm-10">
-            @Html.DisplayFor(model => model.IdVehiculoNavigation.IdVehiculo)
-        </dd>
+
+        <dt class="col-sm-3 fw-bold">@Html.DisplayNameFor(model => model.TarifaDiaria)</dt>
+        <dd class="col-sm-9">@Html.DisplayFor(model => model.TarifaDiaria)</dd>
+
+        <dt class="col-sm-3 fw-bold">@Html.DisplayNameFor(model => model.FechaInicio)</dt>
+        <dd class="col-sm-9">@Html.DisplayFor(model => model.FechaInicio.ToString("dd/MM/yyyy"))</dd>
+
+        <dt class="col-sm-3 fw-bold">@Html.DisplayNameFor(model => model.FechaFin)</dt>
+        <dd class="col-sm-9">@Html.DisplayFor(model => model.FechaFin.ToString("dd/MM/yyyy"))</dd>
+
+        <dt class="col-sm-3 fw-bold">@Html.DisplayNameFor(model => model.Subtotal)</dt>
+        <dd class="col-sm-9">@Html.DisplayFor(model => model.Subtotal.ToString("0.00"))</dd>
+
+        <dt class="col-sm-3 fw-bold">@Html.DisplayNameFor(model => model.IdAlquilerNavigation)</dt>
+        <dd class="col-sm-9">@Html.DisplayFor(model => model.IdAlquilerNavigation.IdAlquiler)</dd>
+
+        <dt class="col-sm-3 fw-bold">@Html.DisplayNameFor(model => model.IdVehiculoNavigation)</dt>
+        <dd class="col-sm-9">@Html.DisplayFor(model => model.IdVehiculoNavigation.IdVehiculo)</dd>
+
     </dl>
+
+    <div class="d-flex justify-content-between mt-4">
+        <a asp-action="Index" class="btn btn-secondary">
+            Volver a la lista
+        </a>
+
+        <a asp-action="Edit" asp-route-id="@Model?.IdDetalle" class="btn btn-primary">
+            Editar Detalle
+        </a>
+    </div>
+
 </div>
-<div>
-    <a asp-action="Edit" asp-route-id="@Model?.IdDetalle">Edit</a> |
-    <a asp-action="Index">Back to List</a>
-</div>
+
